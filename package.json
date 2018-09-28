@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/brandingbrand/react-native-leanplum#readme",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "name": "@brandingbrand/react-native-leanplum",
   "peerDependencies": {
     "react-native": ">=0.40.0"

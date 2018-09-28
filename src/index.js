@@ -1,43 +1,45 @@
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 const LPBridge = NativeModules.RNLeanplum || {};
 
 export default class RNLeanplum {
-  appId: string;
-  key: string;
+  appId;
+  key;
 
-  constructor(appId: string, key: string) {
+  constructor(appId, key) {
     this.appId = appId;
     this.key = key;
   }
 
-  start(): void {
+  start() {
     LPBridge.start && LPBridge.start();
   }
-  setAppIdDevelopmentKey(): void {
-    LPBridge.setAppIdDevelopmentKey && LPBridge.setAppIdDevelopmentKey(this.appId, this.key);
+  setAppIdDevelopmentKey() {
+    LPBridge.setAppIdDevelopmentKey &&
+      LPBridge.setAppIdDevelopmentKey(this.appId, this.key);
   }
-  setAppIdProductionKey(): void {
-    LPBridge.setAppIdProductionKey && LPBridge.setAppIdProductionKey(this.appId, this.key);
+  setAppIdProductionKey() {
+    LPBridge.setAppIdProductionKey &&
+      LPBridge.setAppIdProductionKey(this.appId, this.key);
   }
-  setDeviceId(deviceId: string): void {
+  setDeviceId(deviceId) {
     LPBridge.setDeviceId && LPBridge.setDeviceId(deviceId);
   }
 
-  setUserId(userId: string): void {
+  setUserId(userId) {
     LPBridge.setUserId && LPBridge.setUserId(userId);
   }
 
   // States
-  trackAllAppScreens(): void {
+  trackAllAppScreens() {
     LPBridge.trackAllAppScreens && LPBridge.trackAllAppScreens();
   }
-  pauseState(): void {
+  pauseState() {
     LPBridge.pauseState && LPBridge.pauseState();
   }
-  resumeState(): void {
+  resumeState() {
     LPBridge.resumeState && LPBridge.resumeState();
   }
-  advanceTo(level: string, info?: string, parameters?: {}): void {
+  advanceTo(level, info, parameters) {
     if (info && parameters) {
       LPBridge.advanceToLevelInfoParameters &&
         LPBridge.advanceToLevelInfoParameters(level, info, parameters);
@@ -51,11 +53,11 @@ export default class RNLeanplum {
     }
   }
   // Events
-  trackInAppPurchases(): void {
+  trackInAppPurchases() {
     LPBridge.trackInAppPurchases && LPBridge.trackInAppPurchases();
   }
 
-  track(event: string, value?: number, info?: string, parameters?: {}): void {
+  track(event, value, info, parameters) {
     if (event && value && info && parameters) {
       LPBridge.trackEventValueInfoParameters &&
         LPBridge.trackEventValueInfoParameters(event, value, info, parameters);
@@ -77,7 +79,7 @@ export default class RNLeanplum {
     }
   }
 
-  inboxMessages(): Promise<any> {
+  inboxMessages() {
     if (LPBridge.inboxMessages) {
       return LPBridge.inboxMessages();
     } else {
@@ -85,7 +87,7 @@ export default class RNLeanplum {
     }
   }
 
-  readMessage(id: string): void {
+  readMessage(id) {
     if (LPBridge.readMessage) {
       LPBridge.readMessage(id);
     }
