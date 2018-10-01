@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 
 
 import android.app.Application;
@@ -81,6 +82,41 @@ public class RNLeanplum extends ReactContextBaseJavaModule {
     @ReactMethod
     public void inboxMessages(Promise promise) {
         promise.resolve(generateJSONDictionary());
+    }
+
+    @ReactMethod
+    public void trackEventValueInfoParameters(String event, double value, String info, ReadableMap params) {
+        Leanplum.track(event, value, info, params.toHashMap());
+    }
+
+    @ReactMethod
+    public void trackEventValueParameters(String event, double value, ReadableMap params) {
+        Leanplum.track(event, value, params.toHashMap());
+    }
+
+    @ReactMethod
+    public void trackEventValueInfo(String event, double value, String info) {
+        Leanplum.track(event, value, info);
+    }
+
+    @ReactMethod
+    public void trackEventParameters(String event, ReadableMap params) {
+        Leanplum.track(event, params.toHashMap());
+    }
+
+    @ReactMethod
+    public void trackEventInfo(String event, String info) {
+        Leanplum.track(event, info);
+    }
+
+    @ReactMethod
+    public void trackEventValue(String event, double value) {
+        Leanplum.track(event, value);
+    }
+
+    @ReactMethod
+    public void trackEvent(String event) {
+        Leanplum.track(event);
     }
 
     // Convert android data value into json dictionary
