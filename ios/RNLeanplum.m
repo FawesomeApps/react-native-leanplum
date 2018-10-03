@@ -35,6 +35,10 @@
         [Leanplum start];
     }
 
+    RCT_EXPORT_METHOD(setUserAttributes:(nonnull NSDictionary *)attributes) {
+        [Leanplum setUserAttributes:attributes]
+    }
+
     RCT_EXPORT_METHOD(setDeviceId:(nonnull NSString *)deviceId) {
         [Leanplum setDeviceId:deviceId];
     }

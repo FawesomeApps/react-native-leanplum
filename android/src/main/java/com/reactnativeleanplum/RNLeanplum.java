@@ -1,14 +1,10 @@
 package com.reactnativeleanplum;
 
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
-
 
 import android.app.Application;
 
@@ -22,9 +18,6 @@ import com.leanplum.LeanplumActivityHelper;
 import com.leanplum.LeanplumInbox;
 import com.leanplum.LeanplumInboxMessage;
 import com.leanplum.LeanplumPushService;
-import com.leanplum.NewsfeedMessage;
-
-import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -74,7 +67,6 @@ public class RNLeanplum extends ReactContextBaseJavaModule {
     public void start() {
         Leanplum.setApplicationContext(application);
         LeanplumActivityHelper.enableLifecycleCallbacks(application);
-        LeanplumPushService.setGcmSenderId(LeanplumPushService.LEANPLUM_SENDER_ID);
         LeanplumInbox.disableImagePrefetching();
         Leanplum.start(application);
     }
@@ -119,6 +111,11 @@ public class RNLeanplum extends ReactContextBaseJavaModule {
         Leanplum.track(event);
     }
 
+    @ReactMethod
+    public void setUserAttributes(ReadableMap params) {
+        Leanplum.setUserAttributes(params.toHashMap());
+    }
+
     // Convert android data value into json dictionary
     public WritableArray generateJSONDictionary () {
         LeanplumInbox inbox = Leanplum.getInbox();
@@ -134,7 +131,7 @@ public class RNLeanplum extends ReactContextBaseJavaModule {
             // super hacky: getting private property from a instance
             // Android SDK 2.2.3 getData always returns null
             try {
-                Field field = NewsfeedMessage.class.getDeclaredField("e");
+                Field field = LeanplumInboxMessage.class.getDeclaredField("e");
                 field.setAccessible(true);
                 ActionContext context = (ActionContext) field.get(message);
                 dataString = context.stringNamed("Data");

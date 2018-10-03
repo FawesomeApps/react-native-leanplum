@@ -57,6 +57,10 @@ export default class RNLeanplum {
     LPBridge.trackInAppPurchases && LPBridge.trackInAppPurchases();
   }
 
+  setUserAttributes(attrs) {
+    LPBridge.setUserAttributes(attrs);
+  }
+
   track(event, value, info, parameters) {
     if (event && value && info && parameters) {
       LPBridge.trackEventValueInfoParameters &&
